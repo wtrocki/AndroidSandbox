@@ -12,13 +12,13 @@ public class GameStateRecorder implements IGameStateRecorder {
     // Required to check if user won
     private static int[] winningSumms;
 
-    private static int TOTAL_NUMBER_OF_MOVES = 9;
+    public static int TOTAL_NUMBER_OF_MOVES = 9;
 
     // Overall number of moves required to check if there are no other moves.
-    private int numberOfMoves = 0;
+    protected int numberOfMoves = 0;
 
     // Current turn (player)
-    private PlayerType currentPlayer = PlayerType.X;
+    protected PlayerType currentPlayer = PlayerType.X;
 
     static {
         winningSumms = new int[]{
@@ -56,21 +56,20 @@ public class GameStateRecorder implements IGameStateRecorder {
         return MoveResult.CONTINUE_GAME;
     }
 
-    private void resetObject() {
+    protected void resetObject() {
         numberOfMoves = 0;
         PlayerType.X.setScore(0);
         PlayerType.O.setScore(0);
-
     }
 
-    private boolean isDraw() {
+    protected boolean isDraw() {
         if (numberOfMoves == TOTAL_NUMBER_OF_MOVES) {
             return true;
         }
         return false;
     }
 
-    public boolean isWinningMove(int score) {
+    protected boolean isWinningMove(int score) {
         for (int i = 0; i < winningSumms.length; i++) {
             if ((score & winningSumms[i]) == winningSumms[i]) {
                 return true;

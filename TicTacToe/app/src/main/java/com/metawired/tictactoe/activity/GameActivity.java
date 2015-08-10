@@ -1,4 +1,4 @@
-package com.metawired.tictactoe;
+package com.metawired.tictactoe.activity;
 
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -11,23 +11,29 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.metawired.tictactoe.R;
 import com.metawired.tictactoe.logic.GameStateRecorder;
+import com.metawired.tictactoe.logic.IGameStateRecorder;
 import com.metawired.tictactoe.model.Cell;
 import com.metawired.tictactoe.model.MoveResult;
 
 public class GameActivity extends AppCompatActivity {
 
-    private ImageView[] applicationViews;
+    protected ImageView[] applicationViews;
     private Handler asyncHandler = new Handler();
-    private GameStateRecorder recorder;
+    private IGameStateRecorder recorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        recorder = new GameStateRecorder();
+        recorder = createRecorder();
         buildGameViews();
         setupMetadataForViews();
+    }
+
+    protected GameStateRecorder createRecorder() {
+        return new GameStateRecorder();
     }
 
     private void setupMetadataForViews() {
@@ -67,6 +73,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void handleOnClick(ImageView v, Cell tag) {
+        MoveResult moveResult = handleResult(v, tag);
+        handleExternalMove(moveResult);
+    }
+
+    protected MoveResult handleResult(ImageView v, Cell tag) {
         MoveResult result = recorder.processNextMove(tag);
         v.setImageDrawable(getImageForPlayer(tag));
         if (result.isGameFinished()) {
@@ -78,6 +89,10 @@ public class GameActivity extends AppCompatActivity {
                 clearFields();
             }
         }
+        return result;
+    }
+
+    protected void handleExternalMove(MoveResult tag) {
     }
 
     void showResultDialog(String message) {
@@ -111,7 +126,7 @@ public class GameActivity extends AppCompatActivity {
                     resetCellForIndex(i);
                 }
             }
-        }, 500);
+        }, 2000);
     }
 
 }

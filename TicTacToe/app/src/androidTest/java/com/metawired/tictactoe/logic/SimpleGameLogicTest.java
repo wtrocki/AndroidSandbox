@@ -1,6 +1,4 @@
-package com.metawired.tictactoe;
-
-import com.metawired.tictactoe.logic.GameStateRecorder;
+package com.metawired.tictactoe.logic;
 
 import junit.framework.Assert;
 
