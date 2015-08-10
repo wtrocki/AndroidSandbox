@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TicTacToe</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="win_dialog_ok">PlayAgain</string>
+    <string name="win_dialog_cancel">I had enough</string>
+    <string name="win_dialog_draw">Draw</string>
+    <string name="win_dialog_player_won">" won the game."</string>
+</resources>
